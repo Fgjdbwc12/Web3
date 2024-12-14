@@ -1,0 +1,37 @@
+from web3 import Web3
+
+# Connect to the Ethereum node (Infura in this case)
+w3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID'))
+
+# Check if connected to the Ethereum network
+print("Connected:", w3.isConnected())
+
+# The ABI of the smart contract
+contract_abi = [
+    {
+        "constant": True,
+        "inputs": [],
+        "name": "myFunction",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": False,
+        "stateMutability": "view",
+        "type": "function"
+    }
+    # Add other functions as necessary
+]
+
+# The address of the deployed contract
+contract_address = '0xYourContractAddress'
+
+# Set up the contract instance
+contract = w3.eth.contract(address=contract_address, abi=contract_abi)
+
+# Call the function (view function, doesn't require gas)
+result = contract.functions.myFunction().call()
+
+print("Function result:", result)
